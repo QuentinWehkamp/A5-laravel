@@ -55,8 +55,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('account') }}">
-                                        {{ __('Account') }}
+                                    <a class="dropdown-item" href="{{ route('account.index') }}">
+                                        {{ __('Mijn gegevens') }}
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"

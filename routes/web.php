@@ -22,5 +22,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index']);
+// Route::get('/account', [App\Http\Controllers\AccountController::class, 'index'])->name('account');
+// Route::get('/account/edit', [App\Http\Controllers\AccountController::class, 'edit'])->name('account-edit');
 
-Route::get('/account', [App\Http\Controllers\AccountController::class, 'index'])->name('account');
+Route::resource('/account', App\Http\Controllers\AccountController::class);
