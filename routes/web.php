@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', function () {
-    return redirect('/');
-});
 
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/home', function () {
+    return redirect('/');
+});
+
+Route::controller(App\Http\Controllers\BandController::class)->group(function () {
+    Route::get('/epk/create', 'create');
+});
+
 Route::resource('/account', App\Http\Controllers\AccountController::class);
