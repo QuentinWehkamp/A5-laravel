@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
@@ -69,8 +71,32 @@ class AccountController extends Controller
     public function update(Request $request, $id)
     {
         $name = $request->input('naam');
+        $email = $request->input('email');
+        
+        $user = User::find($id);
 
-        return back()->with('message', $name);
+        $validator = Validator::make($request->all(),[
+            'naam' => 'required|string',
+            'email' => 'nullable|email|unique:users,email,'.$user->id,
+        ]);
+
+        $validator->setCustomMessages([
+            'email.unique' => 'The email address is already taken.',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->route('account.edit', $id)->withErrors($validator)->withInput();
+        }
+
+        $user->name = $request->naam;
+        $user->email = $request->email;
+        $user->save();
+
+        if ($user->wasChanged()) {
+            return redirect()->route('account.index')->with('success', 'Uw gegevens zijn succesvol aangepast!');
+        } else {
+            return redirect()->route('account.index')->with('error', 'No changes were made to the product.');
+        }
 
     }
 

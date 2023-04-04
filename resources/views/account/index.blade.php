@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -10,14 +15,15 @@
                     <div class="card-body">
                         <div>
                             id: {{ Auth::user()->id }}
-
                         </div>
                         <div>
                             Naam: {{ Auth::user()->name }}
-                            <a href="{{ route('account.edit', Auth::user()->id) }}">Edit</a>
                         </div>
                         <div>
                             Email: {{ Auth::user()->email }}
+                        </div>
+                        <div>
+                            <a href="{{ route('account.edit', Auth::user()->id) }}">Edit</a>
                         </div>
                     </div>
                 </div>
