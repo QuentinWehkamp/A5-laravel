@@ -12,20 +12,25 @@
                 <div class="card">
                     <div class="card-header">{{ __('Mijn gegevens') }}</div>
 
-                    <div class="card-body">
+                    <div class="card-body account-index">
+                        <table>
+                          <tr>
+                            <td>ID:</td>
+                            <td>{{ Auth::user()->id }}</td>
+                          </tr>
+                          <tr>
+                            <td>Name:</td>
+                            <td>{{ Auth::user()->name }}</td>
+                          </tr>
+                          <tr>
+                            <td>Email:</td>
+                            <td>{{ Auth::user()->email }}</td>
+                          </tr>
+                        </table>
                         <div>
-                            id: {{ Auth::user()->id }}
+                          <a href="{{ route('account.edit', Auth::user()->id) }}">Edit</a>
                         </div>
-                        <div>
-                            Naam: {{ Auth::user()->name }}
-                        </div>
-                        <div>
-                            Email: {{ Auth::user()->email }}
-                        </div>
-                        <div>
-                            <a href="{{ route('account.edit', Auth::user()->id) }}">Edit</a>
-                        </div>
-                    </div>
+                      </div>
                 </div>
             </div>
         </div>

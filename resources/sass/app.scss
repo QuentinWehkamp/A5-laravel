@@ -6,3 +6,75 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+.account-index{
+    table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      td {
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      td:first-child {
+        font-weight: bold;
+      }
+      a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: #fff;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 20px;
+      }
+      a:hover {
+        background-color: #3e8e41;
+      }
+}
+
+.account-edit{
+    form {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+      }
+      
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #333;
+      }
+      
+      input[type="text"],
+      input[type="email"] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #555;
+      }
+      
+      button[type="submit"] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #4CAF50;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+      }
+      
+      button[type="submit"]:hover {
+        background-color: #3e8e41;
+      }
+}
+  
