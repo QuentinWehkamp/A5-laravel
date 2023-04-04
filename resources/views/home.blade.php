@@ -13,8 +13,15 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    {{ __('You are logged in!') }}
+                    @guest
+                        @if (Route::has('login'))
+                            {{ __('You are not logged in!') }}
+                        @endif
+                    @else
+                        {{ __('You are logged in!') }}
+                    @endguest
+                        
+                        
                 </div>
             </div>
         </div>
