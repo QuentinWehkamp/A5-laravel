@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Band;
+
 
 class BandController extends Controller
 {
@@ -41,24 +43,23 @@ class BandController extends Controller
      */
     public function store(Request $request)
     {
+        Storage::disk('local')->put('logo', 'Contents');
+
+        
         $request->validate([
 
-            'name' => 'required',
-            'img-id' => 'required',
+            'name' => 'required|max:255',
+            $imgid => 'required|unique',
             'bio' => 'required',
             'desc' => 'required',
-            'yt-links' => 'required',
+            $ytlinks => 'required',
             'bg-colour' => 'required',
             'bg-colour' => 'required',
             'txt-colour' => 'required',
 
         ]);
 
-
-
         Band::create($request->all());
-
-
 
         return redirect()->route('home')
 

@@ -65,7 +65,7 @@
 
                 <div class="form-group">
                     <strong>Band logo:</strong><br>
-                    <input type="file" name="" id="">
+                    <input type="file" name="logo" id="logo">
                     {{-- file input gaat hier --}}
                 </div>
                 <div class="form-group">
