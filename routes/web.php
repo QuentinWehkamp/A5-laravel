@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +24,7 @@ Route::get('/home', function () {
 });
 
 Route::controller(App\Http\Controllers\BandController::class)->group(function () {
-    Route::get('/epk/create', 'create');
+    Route::get('/epk/create', 'create')->middleware("auth");
 });
 
 Route::resource('/account', App\Http\Controllers\AccountController::class);
