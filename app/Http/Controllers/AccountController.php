@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
@@ -61,10 +62,28 @@ class AccountController extends Controller
         return view('account.edit');
     }
 
-    public function editPassword($id)
+    public function changePassword()
     {
-        return view('account.editPassword');
+        return view('account.change-password');
     }
+
+    public function updatePassword(Request $request)
+    {
+        
+
+        $request->validate([
+            'new_password' => 'required|confirmed',
+        ]);
+
+
+        #update password
+
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return redirect()->route('account.index')->with("success", "Password changed successful");
+    } 
 
     /**
      * Update the specified resource in storage.
