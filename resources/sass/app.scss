@@ -1,55 +1,55 @@
 // Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
+@import url("https://fonts.bunny.net/css?family=Nunito");
 
 // Variables
-@import 'variables';
+@import "variables";
 
 // Bootstrap
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
 
-.account-index{
+.account-index {
     table {
         border-collapse: collapse;
         width: 100%;
-      }
-      td {
+    }
+    td {
         padding: 10px;
         border: 1px solid #ddd;
-      }
-      td:first-child {
+    }
+    td:first-child {
         font-weight: bold;
-      }
-      a {
+    }
+    a {
         display: inline-block;
         padding: 10px 20px;
-        background-color: #4CAF50;
+        background-color: #4caf50;
         color: #fff;
         border-radius: 5px;
         text-decoration: none;
         margin-top: 20px;
-      }
-      a:hover {
+    }
+    a:hover {
         background-color: #3e8e41;
-      }
+    }
 }
 
-.account-edit{
+.account-edit {
     form {
         background-color: #f8f8f8;
         border: 1px solid #ddd;
         padding: 20px;
         border-radius: 5px;
-      }
-      
-      label {
+    }
+
+    label {
         display: block;
         margin-bottom: 5px;
         font-weight: bold;
         color: #333;
-      }
-      
-      input[type="text"],
-      input[type="email"] {
+    }
+
+    input[type="text"],
+    input[type="email"] {
         display: block;
         width: 100%;
         padding: 10px;
@@ -58,23 +58,22 @@
         border-radius: 5px;
         font-size: 16px;
         color: #555;
-      }
-      
-      button[type="submit"] {
+    }
+
+    button[type="submit"] {
         display: block;
         width: 100%;
         padding: 10px;
         border: none;
         border-radius: 5px;
-        background-color: #4CAF50;
+        background-color: #4caf50;
         color: #fff;
         font-size: 16px;
         cursor: pointer;
         transition: background-color 0.2s ease-in-out;
-      }
-      
-      button[type="submit"]:hover {
+    }
+
+    button[type="submit"]:hover {
         background-color: #3e8e41;
-      }
+    }
 }
-  

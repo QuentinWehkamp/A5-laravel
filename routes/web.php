@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,4 +28,8 @@ Route::controller(App\Http\Controllers\BandController::class)->group(function ()
     Route::get('/epk/create', 'create');
 });
 
+
 Route::resource('/account', App\Http\Controllers\AccountController::class);
+Route::get('/account/edit-password', [\App\Http\Controllers\AccountController::class, 'editPassword'])->name('editPassword');
+
+

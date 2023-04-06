@@ -29,6 +29,7 @@
                         </table>
                         <div>
                           <a href="{{ route('account.edit', Auth::user()->id) }}">Edit</a>
+                          <a href="{{ route('editPassword', Auth::user()->id) }}">Edit Password</a>
                         </div>
                       </div>
                 </div>

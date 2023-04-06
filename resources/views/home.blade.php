@@ -20,7 +20,7 @@
 
                         <form method="GET" action="{{ route('home') }}">
                             <div class="form-group">
-                                <input type="text" name="search" class="form-control" placeholder="Zoek voor bands..." autocomplete="off    ">
+                                <input type="text" name="search" class="form-control" placeholder="Zoek voor bands..." autocomplete="off">
                             </div>
                             <button type="submit" class="btn btn-primary">Zoek</button>
                         </form>
