@@ -13,15 +13,8 @@
                             @csrf
                             <div>
                                 <label for="">Naam:</label>
-                                <input type="text" name="naam" value="{{ Auth::user()->name }}" autocomplete="off">
-                                @error('naam')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div>
-                                <label for="">Email:</label>
-                                <input type="text" name="email" value="{{ Auth::user()->email }}" autocomplete="off">
-                                @error('email')
+                                <input type="text" name="wachtwoord" value="{{ Auth::user()->password }}" autocomplete="off">
+                                @error('wachtwoord')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>

@@ -61,6 +61,11 @@ class AccountController extends Controller
         return view('account.edit');
     }
 
+    public function editPassword($id)
+    {
+        return view('account.editPassword');
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -77,11 +82,11 @@ class AccountController extends Controller
 
         $validator = Validator::make($request->all(),[
             'naam' => 'required|string',
-            'email' => 'nullable|email|unique:users,email,'.$user->id,
+            'email' => 'required|email|unique:users,email,'.$user->id,
         ]);
 
         $validator->setCustomMessages([
-            'email.unique' => 'The email address is already taken.',
+            'email.unique' => 'Dit emailadres is al in gebruik',
         ]);
     
         if ($validator->fails()) {
@@ -95,7 +100,7 @@ class AccountController extends Controller
         if ($user->wasChanged()) {
             return redirect()->route('account.index')->with('success', 'Uw gegevens zijn succesvol aangepast!');
         } else {
-            return redirect()->route('account.index')->with('error', 'No changes were made to the product.');
+            return redirect()->route('account.index')->with('error', 'Er waren geen gegevens aangepast.');
         }
 
     }
