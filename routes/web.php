@@ -29,7 +29,9 @@ Route::controller(App\Http\Controllers\BandController::class)->group(function ()
 });
 
 
+// account routes
 Route::resource('/account', App\Http\Controllers\AccountController::class);
-Route::get('/account/edit-password', [\App\Http\Controllers\AccountController::class, 'editPassword'])->name('editPassword');
+Route::get('edit-password', [App\Http\Controllers\AccountController::class, 'changePassword'])->name('change-password');
+Route::post('edit-password', [App\Http\Controllers\AccountController::class, 'updatePassword'])->name('update-password');
 
 
