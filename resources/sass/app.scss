@@ -22,14 +22,10 @@
     a {
         display: inline-block;
         padding: 10px 20px;
-        background-color: #4caf50;
         color: #fff;
         border-radius: 5px;
         text-decoration: none;
         margin-top: 20px;
-    }
-    a:hover {
-        background-color: #3e8e41;
     }
 }
 
@@ -62,18 +58,12 @@
 
     button[type="submit"] {
         display: block;
-        width: 100%;
         padding: 10px;
         border: none;
         border-radius: 5px;
-        background-color: #4caf50;
         color: #fff;
         font-size: 16px;
         cursor: pointer;
         transition: background-color 0.2s ease-in-out;
-    }
-
-    button[type="submit"]:hover {
-        background-color: #3e8e41;
     }
 }

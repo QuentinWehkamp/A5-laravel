@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -30,7 +31,9 @@ Route::controller(App\Http\Controllers\BandController::class)->group(function ()
 
 // account routes
 Route::resource('/account', App\Http\Controllers\AccountController::class);
-Route::get('edit-password', [App\Http\Controllers\AccountController::class, 'changePassword'])->name('change-password');
-Route::post('edit-password', [App\Http\Controllers\AccountController::class, 'updatePassword'])->name('update-password');
+Route::get('change-password', [App\Http\Controllers\AccountController::class, 'changePassword'])->name('change-password');
+Route::post('change-password', [App\Http\Controllers\AccountController::class, 'updatePassword'])->name('update-password');
 
 
+//band routes
+Route::resource('/band', App\Http\Controllers\BandController::class);

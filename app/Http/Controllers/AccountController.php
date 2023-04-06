@@ -70,19 +70,18 @@ class AccountController extends Controller
     public function updatePassword(Request $request)
     {
         
-
+        #password validation
         $request->validate([
             'new_password' => 'required|confirmed',
         ]);
 
 
-        #update password
-
+        #password update
         User::whereId(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
 
-        return redirect()->route('account.index')->with("success", "Password changed successful");
+        return redirect()->route('account.index')->with("success", "Uw wachtwoord is succesvol bewerkt!");
     } 
 
     /**

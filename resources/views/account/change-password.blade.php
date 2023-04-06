@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a class="btn btn-success" href="{{ route('account.index') }}">Terug</a>
+                            <a class="btn btn-success" href="{{ URL::previous() }}">Terug</a>
                             <button class="btn btn-success">Opslaan</button>
                         </div>
                     </form>
