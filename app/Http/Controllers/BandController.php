@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Console\Input\Input;
+use stdClass;
 use App\Models\Band;
 
 
@@ -43,16 +45,33 @@ class BandController extends Controller
      */
     public function store(Request $request)
     {
-        Storage::disk('local')->put('logo', 'Contents');
 
-        
+        // logo naam veranderen om file conflicts te voorkomen
+        if (!$request->has('logo')) {
+            return response()->json(['message' => 'Missing file'], 422);
+        } else {
+            $filename = 'name' . now();
+            $path = $request->file('logo')->storeAs(
+                'logo',
+                $filename
+            );
+        }
+
+        $ytlinks = new stdClass();
+        $ytlinks->yt0 = $request->input('yt-1');
+        $ytlinks->yt1 = $request->input('yt-2');
+        $ytlinks->yt2 = $request->input('yt-3');
+        $ytlinks->yt3 = $request->input('yt-4');
+        $ytjson = json_encode($ytlinks);
+
+
         $request->validate([
 
-            'name' => 'required|max:255',
-            $imgid => 'required|unique',
+            'name' => 'required|unique:bands|max:255',
+            $path => 'required|unique:bands|file|mimes:jpg,jpeg,png,gif,webp',
             'bio' => 'required',
             'desc' => 'required',
-            $ytlinks => 'required',
+            $ytjson => 'required',
             'bg-colour' => 'required',
             'bg-colour' => 'required',
             'txt-colour' => 'required',

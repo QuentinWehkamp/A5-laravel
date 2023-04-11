@@ -45,7 +45,7 @@
 
 
 
-    <form action="{{ route('home') }}" method="POST">
+    <form action="{{ route('band.store') }}" method="POST" enctype="multipart/form-data">
 
         @csrf
 
@@ -65,7 +65,7 @@
 
                 <div class="form-group">
                     <strong>Band logo:</strong><br>
-                    <input type="file" name="logo" id="logo">
+                    <input type="file" name="logo" id="logo" accept="image">
                     {{-- file input gaat hier --}}
                 </div>
                 <div class="form-group">
@@ -80,9 +80,9 @@
                 </div>
                 <div class="form-group">
                     <strong>Youtube Links:</strong><br>
-                    <input name="yt-1" type="text" id="yt-1">
-                    <input name="yt-2" type="text" id="yt-2">
-                    <input name="yt-3" type="text" id="yt-3">
+                    <input required name="yt-1" type="text" id="yt-1">
+                    <input required name="yt-2" type="text" id="yt-2">
+                    <input required name="yt-3" type="text" id="yt-3">
                     <input name="yt-4" type="text" id="yt-4">
                 </div>
                 <div class="form-group">
