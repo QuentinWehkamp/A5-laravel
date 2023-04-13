@@ -46,39 +46,54 @@ class BandController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+
+            'name' => 'required|unique:bands|max:255',
+            'logo' => 'required|file|mimes:jpg,jpeg,png,gif,webp',
+            'bio' => 'required',
+            'desc' => 'required',
+            'yt-1' => 'required',
+            'yt-2' => 'required',
+            'yt-3' => 'required',
+            'bgColour' => 'required',
+            'txtColour' => 'required',
+            'adminid' => 'required'
+        ]);
+
         // logo naam veranderen om file conflicts te voorkomen
-        if (!$request->has('logo')) {
-            return response()->json(['message' => 'Missing file'], 422);
-        } else {
-            $filename = 'name' . now();
-            $path = $request->file('logo')->storeAs(
-                'logo',
-                $filename
-            );
-        }
+        $nameLogo = $request->input('name');
+        $nameLogo = str_replace(' ', '_', $nameLogo);
+        $filename = $nameLogo . date("ymd") . '.jpg';
+        $path = $request->file('logo')->storeAs(
+            'logo',
+            $filename
+        );
+
 
         $ytlinks = new stdClass();
         $ytlinks->yt0 = $request->input('yt-1');
         $ytlinks->yt1 = $request->input('yt-2');
         $ytlinks->yt2 = $request->input('yt-3');
-        $ytlinks->yt3 = $request->input('yt-4');
+        if (!empty($request->input('yt-4'))) {
+            $ytlinks->yt3 = $request->input('yt-4');
+        }
         $ytjson = json_encode($ytlinks);
 
+        $adminids = new stdClass();
+        $adminids->id = $request->input('adminid');
+        $adminJson = json_encode($adminids);
 
-        $request->validate([
+        $band = new Band;
+        $band->name = $request->name;
+        $band->imgid = $path;
+        $band->bio = $request->bio;
+        $band->desc = $request->desc;
+        $band->ytlinks = $ytjson;
+        $band->bgcolour = $request->bgColour;
+        $band->txtcolour = $request->txtColour;
+        $band->adminid = $adminJson;
 
-            'name' => 'required|unique:bands|max:255',
-            $path => 'required|unique:bands|file|mimes:jpg,jpeg,png,gif,webp',
-            'bio' => 'required',
-            'desc' => 'required',
-            $ytjson => 'required',
-            'bg-colour' => 'required',
-            'bg-colour' => 'required',
-            'txt-colour' => 'required',
-
-        ]);
-
-        Band::create($request->all());
+        $band->save();
 
         return redirect()->route('home')
 

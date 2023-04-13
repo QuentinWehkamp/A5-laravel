@@ -17,13 +17,13 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string("name");
-            $table->string("img-id");
+            $table->string("imgid");
             $table->text("bio");
             $table->text("desc");
-            $table->json("yt-links");
-            $table->string("bg-colour");
-            $table->string("txt-colour");
-            $table->json("admin-id");
+            $table->json("ytlinks");
+            $table->string("bgcolour");
+            $table->string("txtcolour");
+            $table->json("adminid");
         });
     }
 

@@ -87,16 +87,16 @@
                 </div>
                 <div class="form-group">
                     <strong>Achtergrondkleur:</strong><br>
-                    <input type="color" name="bg-colour" id="bg-colour">
+                    <input type="color" name="bgColour" id="bgColour">
                 </div>
                 <div class="form-group">
                     <strong>Textkleur</strong><br>
-                    <input type="color" name="txt-colour" id="txt-colour">
+                    <input type="color" name="txtColour" id="txtColour">
                 </div>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-
+                <input type="hidden" readonly id="adminid" name="adminid" value="{{ Auth::user()->id }}">
                 <button type="submit" class="btn btn-primary">Submit</button>
 
             </div>

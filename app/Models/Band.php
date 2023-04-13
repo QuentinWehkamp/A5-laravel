@@ -9,6 +9,6 @@ class Band extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'img-id', 'bio', 'desc', 'yt-links', 'bg-colour', 'txt-colour', 'admin-id'];
+    protected $fillable = ['name', 'imgid', 'bio', 'desc', 'ytlinks', 'bgcolour', 'txtcolour', 'adminid'];
 
 }
