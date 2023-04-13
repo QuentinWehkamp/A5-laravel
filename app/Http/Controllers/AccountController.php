@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
@@ -61,6 +62,28 @@ class AccountController extends Controller
         return view('account.edit');
     }
 
+    public function changePassword()
+    {
+        return view('account.change-password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        
+        #password validation
+        $request->validate([
+            'new_password' => 'required|confirmed',
+        ]);
+
+
+        #password update
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return redirect()->route('account.index')->with("success", "Uw wachtwoord is succesvol bewerkt!");
+    } 
+
     /**
      * Update the specified resource in storage.
      *
@@ -77,11 +100,11 @@ class AccountController extends Controller
 
         $validator = Validator::make($request->all(),[
             'naam' => 'required|string',
-            'email' => 'nullable|email|unique:users,email,'.$user->id,
+            'email' => 'required|email|unique:users,email,'.$user->id,
         ]);
 
         $validator->setCustomMessages([
-            'email.unique' => 'The email address is already taken.',
+            'email.unique' => 'Dit emailadres is al in gebruik',
         ]);
     
         if ($validator->fails()) {
@@ -95,7 +118,7 @@ class AccountController extends Controller
         if ($user->wasChanged()) {
             return redirect()->route('account.index')->with('success', 'Uw gegevens zijn succesvol aangepast!');
         } else {
-            return redirect()->route('account.index')->with('error', 'No changes were made to the product.');
+            return redirect()->route('account.index')->with('error', 'Er waren geen gegevens aangepast.');
         }
 
     }

@@ -4,6 +4,7 @@ use App\Http\Controllers\BandController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,4 +30,12 @@ Route::controller(BandController::class)->group(function () {
     Route::get('/epk/create', 'create')->middleware("auth");
 });
 
+
+// account routes
 Route::resource('/account', App\Http\Controllers\AccountController::class);
+Route::get('change-password', [App\Http\Controllers\AccountController::class, 'changePassword'])->name('change-password');
+Route::post('change-password', [App\Http\Controllers\AccountController::class, 'updatePassword'])->name('update-password');
+
+
+//band routes
+Route::resource('/band', App\Http\Controllers\BandController::class);

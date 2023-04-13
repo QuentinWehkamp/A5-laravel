@@ -7,25 +7,25 @@
                 <div class="card">
                     <div class="card-header">{{ __('Bewerk mijn gegevens') }}</div>
 
-                    <div class="card-body">
+                    <div class="card-body account-edit">
                         <form method="POST" action="{{ route('account.update', Auth::user()->id) }}">
                             @method('PUT')
                             @csrf
                             <div>
-                                <label for="">Naam</label>
-                                <input type="text" name="naam" value="{{ Auth::user()->name }}">
+                                <label for="">Naam:</label>
+                                <input type="text" name="naam" value="{{ Auth::user()->name }}" autocomplete="off">
                                 @error('naam')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div>
-                                <label for="">Email</label>
-                                <input type="text" name="email" value="{{ Auth::user()->email }}">
+                                <label for="">Email:</label>
+                                <input type="text" name="email" value="{{ Auth::user()->email }}" autocomplete="off">
                                 @error('email')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <button type="submit">Opslaan</button>
+                            <button class="btn btn-success" type="submit">Opslaan</button>
                         </form>
                     </div>
                 </div>

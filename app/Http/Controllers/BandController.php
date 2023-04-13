@@ -108,7 +108,7 @@ class BandController extends Controller
      */
     public function show($id)
     {
-        return view('band.show', compact('band'));
+        return view('band.show');
     }
 
     /**
