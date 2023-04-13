@@ -45,7 +45,7 @@
 
 
 
-    <form action="{{ route('home') }}" method="POST">
+    <form action="{{ route('band.store') }}" method="POST" enctype="multipart/form-data">
 
         @csrf
 
@@ -63,10 +63,40 @@
 
                 </div>
 
+                <div class="form-group">
+                    <strong>Band logo:</strong><br>
+                    <input type="file" name="logo" id="logo" accept="image">
+                    {{-- file input gaat hier --}}
+                </div>
+                <div class="form-group">
+                    <strong>Bio:</strong><br>
+
+                    <textarea name="bio" id="bio" cols="30" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <strong>Beschrijving:</strong><br>
+
+                    <textarea name="desc" id="desc" cols="30" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <strong>Youtube Links:</strong><br>
+                    <input required name="yt-1" type="text" id="yt-1">
+                    <input required name="yt-2" type="text" id="yt-2">
+                    <input required name="yt-3" type="text" id="yt-3">
+                    <input name="yt-4" type="text" id="yt-4">
+                </div>
+                <div class="form-group">
+                    <strong>Achtergrondkleur:</strong><br>
+                    <input type="color" name="bgColour" id="bgColour">
+                </div>
+                <div class="form-group">
+                    <strong>Textkleur</strong><br>
+                    <input type="color" name="txtColour" id="txtColour">
+                </div>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-
+                <input type="hidden" readonly id="adminid" name="adminid" value="{{ Auth::user()->id }}">
                 <button type="submit" class="btn btn-primary">Submit</button>
 
             </div>

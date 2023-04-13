@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BandController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,8 +25,9 @@ Route::get('/home', function () {
     return redirect('/');
 });
 
-Route::controller(App\Http\Controllers\BandController::class)->group(function () {
-    Route::get('/epk/create', 'create');
+Route::controller(BandController::class)->group(function () {
+    Route::post('/epk', 'store')->name("band.store");
+    Route::get('/epk/create', 'create')->middleware("auth");
 });
 
 
