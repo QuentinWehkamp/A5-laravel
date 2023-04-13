@@ -25,7 +25,7 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <button type="submit">Opslaan</button>
+                            <button class="btn btn-success" type="submit">Opslaan</button>
                         </form>
                     </div>
                 </div>

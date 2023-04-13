@@ -14,24 +14,23 @@
 
                     <div class="card-body account-index">
                         <table>
-                          <tr>
-                            <td>ID:</td>
-                            <td>{{ Auth::user()->id }}</td>
-                          </tr>
-                          <tr>
-                            <td>Name:</td>
-                            <td>{{ Auth::user()->name }}</td>
-                          </tr>
-                          <tr>
-                            <td>Email:</td>
-                            <td>{{ Auth::user()->email }}</td>
-                          </tr>
+                            <tr>
+                                <td>ID:</td>
+                                <td>{{ Auth::user()->id }}</td>
+                            </tr>
+                            <tr>
+                                <td>Name:</td>
+                                <td>{{ Auth::user()->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td>{{ Auth::user()->email }}</td>
+                            </tr>
                         </table>
-                        <div>
-                          <a href="{{ route('account.edit', Auth::user()->id) }}">Edit</a>
-                          <a href="{{ route('change-password', Auth::user()->id) }}">Edit Password</a>
-                        </div>
-                      </div>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-success" href="{{ route('account.edit', Auth::user()->id) }}">Bewerk</a>
+                    </div>
                 </div>
             </div>
         </div>
