@@ -63,12 +63,13 @@ class BandController extends Controller
         // logo naam veranderen om file conflicts te voorkomen
         $nameLogo = $request->input('name');
         $nameLogo = str_replace(' ', '_', $nameLogo);
-        $filename = $nameLogo . date("ymd") . '.jpg';
+        date_default_timezone_set("Europe/Berlin");
+        $filename = $nameLogo . date("Y-m-d"). "_" . time() . '.jpg';
         $path = $request->file('logo')->storeAs(
-            'logo',
+            'public/logo',
             $filename
         );
-
+        $pathsave = str_replace("public","storage", $path);
 
         $ytlinks = new stdClass();
         $ytlinks->yt0 = $request->input('yt-1');
@@ -85,7 +86,7 @@ class BandController extends Controller
 
         $band = new Band;
         $band->name = $request->name;
-        $band->imgid = $path;
+        $band->imgid = $pathsave;
         $band->bio = $request->bio;
         $band->desc = $request->desc;
         $band->ytlinks = $ytjson;
