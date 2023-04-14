@@ -1,31 +1,14 @@
 
-@extends('band.layout')
-
-
+@extends('layouts.app')
 
 @section('content')
-
-    <div class="row">
-
-        <div class="col-lg-12 margin-tb">
-
-            <div class="pull-left">
-
-                <h2>Add New EPK</h2>
-
-            </div>
-
-            <div class="pull-right">
-
-                <a class="btn btn-primary" href="{{ route('home') }}"> Back</a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        {{ __('EPK maken') }}
+                    </div>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -46,26 +29,21 @@
 
 
     <form action="{{ route('band.store') }}" method="POST" enctype="multipart/form-data">
-
         @csrf
 
-
-
-        <div class="row">
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="">
 
                 <div class="form-group">
 
-                    <strong>Name:</strong>
+                    <strong class="">Band Naam:</strong><br>
 
-                    <input type="text" name="name" class="form-control" placeholder="Name">
+                    <input class=" sm" type="text" name="name" class="form-control" placeholder="Name">
 
                 </div>
 
                 <div class="form-group">
-                    <strong>Band logo:</strong><br>
-                    <input type="file" name="logo" id="logo" accept="image">
+                    <strong class="text-center">Band logo:</strong><br>
+                    <input class="" type="file" name="logo" id="logo" accept="image">
                     {{-- file input gaat hier --}}
                 </div>
                 <div class="form-group">
@@ -87,23 +65,19 @@
                 </div>
                 <div class="form-group">
                     <strong>Achtergrondkleur:</strong><br>
-                    <input type="color" name="bgColour" id="bgColour">
+                    <input type="color" value="#ffffff" name="bgColour" id="bgColour">
                 </div>
                 <div class="form-group">
-                    <strong>Textkleur</strong><br>
+                    <strong>Tekstkleur</strong><br>
                     <input type="color" name="txtColour" id="txtColour">
                 </div>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <input type="hidden" readonly id="adminid" name="adminid" value="{{ Auth::user()->id }}">
+                <a class="btn btn-primary" href="{{ route('home') }}"> Back</a>
                 <button type="submit" class="btn btn-primary">Submit</button>
-
             </div>
-
-        </div>
-
-
 
     </form>
 
