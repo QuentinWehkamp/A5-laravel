@@ -20,19 +20,26 @@
 
                         <form method="GET" action="{{ route('home') }}">
                             <div class="form-group">
-                                <input type="text" name="search" class="form-control" placeholder="Zoek voor bands..." autocomplete="off">
+                                <input type="text" name="search" class="form-control" placeholder="Zoek voor bands..."
+                                    autocomplete="off">
                             </div>
+                            <br>
                             <button type="submit" class="btn btn-primary">Zoek</button>
                         </form>
+                        <br>
 
                         @if ($bands->isNotEmpty())
-                            <div class="row">
-                                @foreach ($bands as $band)
-                                    <div class="col-md-3">
-                                        <h3>{{ $band->name }}</h3>
+                            @foreach ($bands as $band)
+                                <div class="row my-2">
+                                    <div class="col-md d-flex align-items-center">
+                                        <img class="searchImg" src={{ $band->imgid }} alt="">
+                                        <h3 class="ps-3">{{ $band->name }}</h3>
+                                        <h3 class="p-3">|</h3>
+                                        <p class="mb-2">{{ $band->desc }}</p>
+                                        <a class="btn btn-primary ms-auto" href="{{ route('band.show', $band->id)}}">Bezoek</a>
                                     </div>
-                                @endforeach
-                            </div>
+                                </div>
+                            @endforeach
                         @else
                             <p>Geen bands gevonden.</p>
                         @endif
