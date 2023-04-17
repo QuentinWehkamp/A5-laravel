@@ -33,7 +33,7 @@ Route::controller(BandController::class)->group(function () {
 
 // account routes
 Route::resource('/account', App\Http\Controllers\AccountController::class);
-Route::get('change-password', [App\Http\Controllers\AccountController::class, 'changePassword'])->name('changepassword');
+Route::get('change-password', [App\Http\Controllers\AccountController::class, 'changePassword'])->name('change-password');
 Route::post('change-password', [App\Http\Controllers\AccountController::class, 'updatePassword'])->name('update-password');
 
 
