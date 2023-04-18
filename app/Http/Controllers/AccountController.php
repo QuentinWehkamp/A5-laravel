@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
@@ -16,7 +17,10 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return view('account.index');
+        $user = auth()->user();
+        $bands = $user->bands;
+
+        return view('account.index', compact('bands'));
     }
 
     /**
@@ -69,7 +73,7 @@ class AccountController extends Controller
 
     public function updatePassword(Request $request)
     {
-        
+
         #password validation
         $request->validate([
             'new_password' => 'required|confirmed',
@@ -82,7 +86,7 @@ class AccountController extends Controller
         ]);
 
         return redirect()->route('account.index')->with("success", "Uw wachtwoord is succesvol bewerkt!");
-    } 
+    }
 
     /**
      * Update the specified resource in storage.
@@ -95,18 +99,18 @@ class AccountController extends Controller
     {
         $name = $request->input('naam');
         $email = $request->input('email');
-        
+
         $user = User::find($id);
 
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'naam' => 'required|string',
-            'email' => 'required|email|unique:users,email,'.$user->id,
+            'email' => 'required|email|unique:users,email,' . $user->id,
         ]);
 
         $validator->setCustomMessages([
             'email.unique' => 'Dit emailadres is al in gebruik',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->route('account.edit', $id)->withErrors($validator)->withInput();
         }
@@ -120,7 +124,6 @@ class AccountController extends Controller
         } else {
             return redirect()->route('account.index')->with('error', 'Er waren geen gegevens aangepast.');
         }
-
     }
 
     /**

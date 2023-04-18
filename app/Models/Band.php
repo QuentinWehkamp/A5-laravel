@@ -11,4 +11,9 @@ class Band extends Model
 
     protected $fillable = ['name', 'imgid', 'bio', 'desc', 'ytlinks', 'bgcolour', 'txtcolour', 'adminid'];
 
+    public function admin()
+{
+    return $this->belongsTo(User::class, 'adminid');
+}
+
 }

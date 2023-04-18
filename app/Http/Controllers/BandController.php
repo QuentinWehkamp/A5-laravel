@@ -92,10 +92,9 @@ class BandController extends Controller
         $band->ytlinks = $ytjson;
         $band->bgcolour = $request->bgColour;
         $band->txtcolour = $request->txtColour;
-        $band->adminid = $adminJson;
-
+        $band->adminid = auth()->id();
         $band->save();
-
+        
         return redirect()->route('home')
 
             ->with('success', 'EPK created successfully.');

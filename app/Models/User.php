@@ -41,4 +41,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function bands()
+{
+    return $this->hasMany(Band::class, 'adminid');
+}
 }

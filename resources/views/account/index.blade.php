@@ -43,11 +43,9 @@
                     <div class="card-header">{{ __('Mijn EPK\'s') }}</div>
 
                     <div class="card-body">
-                        <div>naam + link 1</div>
-                        <div>naam + link 2</div>
-                        <div>naam + link 3</div>
-                        <div>naam + link 4</div>
-                        <div>naam + link 5</div>
+                        @foreach ($bands as $band)
+                            <a href={{ route('band.show', $band->id) }}>{{ $band->name }}</a><br>
+                        @endforeach
                     </div>
                 </div>
             </div>
