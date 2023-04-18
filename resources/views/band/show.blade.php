@@ -1,10 +1,18 @@
-<?php 
+<?php
 $obj = json_decode($band->ytlinks);
-$newyt0 = explode("=", $obj->yt0);
-$newyt1 = explode("=", $obj->yt1);
-$newyt2 = explode("=", $obj->yt2);
-// $newyt3 = explode("=", $obj->yt3);
+$newyt0 = explode('=', $obj->yt0);
+$newyt1 = explode('=', $obj->yt1);
+$newyt2 = explode('=', $obj->yt2);
+if (isset($obj->yt3)) {
+    $newyt3 = explode('=', $obj->yt3);
+}
 
+use Illuminate\Support\Facades\Auth;
+Auth::check();
+$id = Auth::id();
+if (isset($id)) {
+    $admin = json_decode($band->adminid);
+}
 ?>
 @extends('layouts.app')
 
@@ -19,6 +27,12 @@ $newyt2 = explode("=", $obj->yt2);
             <div class="col-md-8">
                 <div class="epk">
                     <div class="row my-5">
+                        @if (isset($id) && in_array($id, (array) $admin))
+                            <div id="edit">
+                                <a href="{{ route('band.edit', $band->id)}}">Edit</a>
+                            </div>
+                        @endif
+
                         <div class="col-md-5">
                             <img class="object-fit border rounded bandImg" src={{ asset($band->imgid) }} alt="">
                         </div>
@@ -57,11 +71,14 @@ $newyt2 = explode("=", $obj->yt2);
                             </iframe>
                         </div>
                         <div class="col-md">
-                            <iframe width="280" height="157" src="https://www.youtube.com/embed/{{ $newyt2[1] }}"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen>
-                            </iframe>
+                            @if (isset($newyt3))
+                                <iframe width="280" height="157"
+                                    src="https://www.youtube.com/embed/{{ $newyt3[1] }}" title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen>
+                                </iframe>
+                            @endif
                         </div>
                     </div>
                 </div>

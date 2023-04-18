@@ -121,8 +121,10 @@ class BandController extends Controller
      */
     public function edit($id)
     {
-        $bands = Band::pluck('name', 'img-id', 'bio', 'desc', 'yt-links', 'bg-colour', 'txt-colour', 'admin-id', 'id');
-        return view('band.edit', compact('bands'));
+        // $this->middleware('isAdmin');
+        $this->middleware('auth');
+        $band = Band::find($id);
+        return view('band.edit', compact('band'));
     }
 
     /**
@@ -136,16 +138,51 @@ class BandController extends Controller
     {
         $request->validate([
 
-            'name' => 'required',
-            'img-id' => 'required',
+            'name' => 'required|unique:bands|max:255',
+            'logo' => 'required|file|mimes:jpg,jpeg,png,gif,webp',
             'bio' => 'required',
             'desc' => 'required',
-            'yt-links' => 'required',
-            'bg-colour' => 'required',
-            'bg-colour' => 'required',
-            'txt-colour' => 'required',
-
+            'yt-1' => 'required',
+            'yt-2' => 'required',
+            'yt-3' => 'required',
+            'bgColour' => 'required',
+            'txtColour' => 'required',
+            'adminid' => 'required'
         ]);
+
+        // logo naam veranderen om file conflicts te voorkomen
+        $nameLogo = $request->input('name');
+        $nameLogo = str_replace(' ', '_', $nameLogo);
+        date_default_timezone_set("Europe/Berlin");
+        $filename = $nameLogo . date("Y-m-d"). "_" . time() . '.jpg';
+        $path = $request->file('logo')->storeAs(
+            'public/logo',
+            $filename
+        );
+        $pathsave = str_replace("public","storage", $path);
+
+        $ytlinks = new stdClass();
+        $ytlinks->yt0 = $request->input('yt-1');
+        $ytlinks->yt1 = $request->input('yt-2');
+        $ytlinks->yt2 = $request->input('yt-3');
+        if (!empty($request->input('yt-4'))) {
+            $ytlinks->yt3 = $request->input('yt-4');
+        }
+        $ytjson = json_encode($ytlinks);
+
+        $adminids = new stdClass();
+        $adminids->id = $request->input('adminid');
+        $adminJson = json_encode($adminids);
+
+        $band = new Band;
+        $band->name = $request->name;
+        $band->imgid = $pathsave;
+        $band->bio = $request->bio;
+        $band->desc = $request->desc;
+        $band->ytlinks = $ytjson;
+        $band->bgcolour = $request->bgColour;
+        $band->txtcolour = $request->txtColour;
+        $band->adminid = $adminJson;
 
         $band->update($request->all());
 
