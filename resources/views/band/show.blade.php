@@ -1,6 +1,9 @@
 <?php 
 $obj = json_decode($band->ytlinks);
 $newyt0 = explode("=", $obj->yt0);
+$newyt1 = explode("=", $obj->yt1);
+$newyt2 = explode("=", $obj->yt2);
+// $newyt3 = explode("=", $obj->yt3);
 
 ?>
 @extends('layouts.app')
@@ -33,22 +36,32 @@ $newyt0 = explode("=", $obj->yt0);
                     </div>
                     <div class="row">
                         <div class="col-md">
-                            <iframe  frameborder="0"></iframe>
-
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ $newyt0[1] }}"
+                            <iframe width="280" height="157" src="https://www.youtube.com/embed/{{ $newyt0[1] }}"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen></iframe>
-
+                                allowfullscreen>
+                            </iframe>
                         </div>
                         <div class="col-md">
-                            <img class="rounded" src="http://placehold.it/180" alt="">
+                            <iframe width="280" height="157" src="https://www.youtube.com/embed/{{ $newyt1[1] }}"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
                         </div>
                         <div class="col-md">
-                            <img class="rounded" src="http://placehold.it/180" alt="">
+                            <iframe width="280" height="157" src="https://www.youtube.com/embed/{{ $newyt2[1] }}"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
                         </div>
                         <div class="col-md">
-                            <img class="rounded" src="http://placehold.it/180" alt="">
+                            <iframe width="280" height="157" src="https://www.youtube.com/embed/{{ $newyt2[1] }}"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
                         </div>
                     </div>
                 </div>
