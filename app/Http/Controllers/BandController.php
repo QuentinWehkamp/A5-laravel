@@ -107,6 +107,7 @@ class BandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
         $band = Band::find($id);
@@ -133,13 +134,15 @@ class BandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
      */
     public function update(Request $request, Band $band, $id)
     {
+
         $request->validate([
 
             'name' => 'required|unique:bands|max:255',
-            'logo' => 'required|file|mimes:jpg,jpeg,png,gif,webp',
+            'logo' => 'file|mimes:jpg,jpeg,png,gif,webp',
             'bio' => 'required',
             'desc' => 'required',
             'yt-1' => 'required',
@@ -147,9 +150,11 @@ class BandController extends Controller
             'yt-3' => 'required',
             'bgColour' => 'required',
             'txtColour' => 'required',
-            'adminid' => 'required'
         ]);
 
+        $band = Band::find($id);
+
+        if(isset($request->file)){
         // logo naam veranderen om file conflicts te voorkomen
         $nameLogo = $request->input('name');
         $nameLogo = str_replace(' ', '_', $nameLogo);
@@ -160,6 +165,8 @@ class BandController extends Controller
             $filename
         );
         $pathsave = str_replace("public","storage", $path);
+        $band->imgid = $pathsave;
+        }
 
         $ytlinks = new stdClass();
         $ytlinks->yt0 = $request->input('yt-1');
@@ -170,21 +177,19 @@ class BandController extends Controller
         }
         $ytjson = json_encode($ytlinks);
 
-        $adminids = new stdClass();
-        $adminids->id = $request->input('adminid');
-        $adminJson = json_encode($adminids);
+        // $adminids = new stdClass();
+        // $adminids->id = $request->input('adminid');
+        // $adminJson = json_encode($adminids);
 
-        $band = new Band;
         $band->name = $request->name;
-        $band->imgid = $pathsave;
         $band->bio = $request->bio;
         $band->desc = $request->desc;
         $band->ytlinks = $ytjson;
         $band->bgcolour = $request->bgColour;
         $band->txtcolour = $request->txtColour;
-        $band->adminid = $adminJson;
+        // $band->adminid = $adminJson;
 
-        $band->update($request->all());
+        $band->update();
 
         return redirect()->route('home')
 
