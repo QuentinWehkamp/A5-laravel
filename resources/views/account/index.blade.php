@@ -47,10 +47,10 @@
                     <div class="card-header">{{ __('Mijn EPK\'s') }}</div>
 
                     <div class="card-body">
-                        @if ($bands)
+                        @if (Auth::user()->bands)
                             <ul>
-                                @foreach ($bands as $band)
-                                    <li>{{ $band->name }}</li>
+                                @foreach (Auth::user()->bands as $band)
+                                    <a href="{{ route('band.show', $band->id) }}">{{ $band->name }}</a><br>
                                 @endforeach
                             </ul>
                         @else

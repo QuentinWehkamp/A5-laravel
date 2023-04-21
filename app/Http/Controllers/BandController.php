@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Input\Input;
 use stdClass;
 use App\Models\Band;
+use Illuminate\Support\Facades\Auth;
 
 
 class BandController extends Controller
@@ -84,7 +85,7 @@ class BandController extends Controller
         $adminids->id = $request->input('adminid');
         $adminJson = json_encode($adminids);
 
-        $band = new Band;
+        $band = new Band();
         $band->name = $request->name;
         $band->imgid = $pathsave;
         $band->bio = $request->bio;
@@ -93,6 +94,8 @@ class BandController extends Controller
         $band->bgcolour = $request->bgColour;
         $band->txtcolour = $request->txtColour;
         $band->adminid = auth()->id();
+        $band->save();
+        $band->admins()->attach(Auth::user());
         $band->save();
         
         return redirect()->route('home')
