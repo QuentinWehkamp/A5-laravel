@@ -1,10 +1,12 @@
-<?php 
+<?php
 $obj = json_decode($band->ytlinks);
-$newyt0 = explode("=", $obj->yt0);
-$newyt1 = explode("=", $obj->yt1);
-$newyt2 = explode("=", $obj->yt2);
+
+$newyt0 = explode('=', $obj->yt0);
+$newyt1 = explode('=', $obj->yt1);
+$newyt2 = explode('=', $obj->yt2);
+
 if (isset($obj->yt3)) {
-    $newyt3 = explode("=", $obj->yt3);
+    $newyt3 = explode('=', $obj->yt3);
 }
 
 ?>
@@ -60,11 +62,12 @@ if (isset($obj->yt3)) {
                         </div>
                         <div class="col-md">
                             @if (isset($newyt3))
-                            <iframe width="280" height="157" src="https://www.youtube.com/embed/{{ $newyt3[1] }}"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen>
-                            </iframe>
+                                <iframe width="280" height="157"
+                                    src="https://www.youtube.com/embed/{{ $newyt3[1] }}" title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen>
+                                </iframe>
                             @endif
                         </div>
                     </div>

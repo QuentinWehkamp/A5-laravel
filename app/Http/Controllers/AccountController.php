@@ -17,10 +17,13 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
-        $bands = $user->bands;
 
-        return view('account.index', compact('bands'));
+        $user = User::find(1);
+        $bands = $user->bands; 
+        // $user = auth()->user();
+        // $bands = $user->bands;
+
+        return view('account.index', ['bands' => $bands]);
     }
 
     /**

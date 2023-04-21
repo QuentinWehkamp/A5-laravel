@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 @extends('layouts.app')
 
 @section('content')
@@ -43,9 +47,15 @@
                     <div class="card-header">{{ __('Mijn EPK\'s') }}</div>
 
                     <div class="card-body">
-                        @foreach ($bands as $band)
-                            <a href={{ route('band.show', $band->id) }}>{{ $band->name }}</a><br>
-                        @endforeach
+                        @if ($bands)
+                            <ul>
+                                @foreach ($bands as $band)
+                                    <li>{{ $band->name }}</li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <p>No bands found for this user.</p>
+                        @endif
                     </div>
                 </div>
             </div>
