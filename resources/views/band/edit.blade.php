@@ -36,17 +36,18 @@ if(isset($decode->yt3)){
 
 
                     <div class="container w-75 mt-3">
-                        <form action="{{route('band.update', $band->id)}}" enctype="multipart/form-data">
+                        <form action="{{route('band.update', $band->id)}}" enctype="multipart/form-data" method="POST">
                             @csrf
                             @method('PUT')
 
                             <div class="form-group position-relative mt-4 start-50 translate-middle text-center">
                                 <label for="name" class="">Band Naam:</label><br>
-                                <input class="form-control w-50 mx-auto" id="name" type="text" name="name"
+                                <input disabled class="form-control w-50 mx-auto" id="name" type="text" name="name"
                                     class="form-control" placeholder="Name" value="{{$band->name}}">
                             </div>
 
                             <div class="form-group position-relative mt-2 start-50 translate-middle text-center">
+                                <input type="hidden" readonly id="pathsave" name="pathsave" value="{{ $band->imgid }}">
                                 <label for="logo" class="">Band
                                     logo:</label><br>
                                 <input class="form-control position-relative mx-auto w-50" type="file" name="logo"
@@ -99,7 +100,6 @@ if(isset($decode->yt3)){
                         <a class="btn btn-primary" href="{{ route('home') }}"> Back</a>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
-
                     </form>
 
                 @endsection

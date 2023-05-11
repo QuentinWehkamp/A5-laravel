@@ -64,12 +64,12 @@ class BandController extends Controller
         $nameLogo = $request->input('name');
         $nameLogo = str_replace(' ', '_', $nameLogo);
         date_default_timezone_set("Europe/Berlin");
-        $filename = $nameLogo . date("Y-m-d"). "_" . time() . '.jpg';
+        $filename = $nameLogo . date("Y-m-d") . "_" . time() . '.jpg';
         $path = $request->file('logo')->storeAs(
             'public/logo',
             $filename
         );
-        $pathsave = str_replace("public","storage", $path);
+        $pathsave = str_replace("public", "storage", $path);
 
         $ytlinks = new stdClass();
         $ytlinks->yt0 = $request->input('yt-1');
@@ -136,13 +136,14 @@ class BandController extends Controller
      * @return \Illuminate\Http\Response
      * 
      */
-    public function update(Request $request, Band $band, $id)
+    public function update(Request $request, Band $band)
     {
 
         $request->validate([
-
-            'name' => 'required|unique:bands|max:255',
+            // unique in de naam zorgt voor een conflict dus ik heb het gemaakt dat je de naam niet kan veranderen 
+            // 'name' => 'required|unique:bands|max:255',
             'logo' => 'file|mimes:jpg,jpeg,png,gif,webp',
+            'pathsave' => 'required',
             'bio' => 'required',
             'desc' => 'required',
             'yt-1' => 'required',
@@ -152,20 +153,20 @@ class BandController extends Controller
             'txtColour' => 'required',
         ]);
 
-        $band = Band::find($id);
-
-        if(isset($request->file)){
-        // logo naam veranderen om file conflicts te voorkomen
-        $nameLogo = $request->input('name');
-        $nameLogo = str_replace(' ', '_', $nameLogo);
-        date_default_timezone_set("Europe/Berlin");
-        $filename = $nameLogo . date("Y-m-d"). "_" . time() . '.jpg';
-        $path = $request->file('logo')->storeAs(
-            'public/logo',
-            $filename
-        );
-        $pathsave = str_replace("public","storage", $path);
-        $band->imgid = $pathsave;
+        if (isset($request->file)) {
+            // logo naam veranderen om file conflicts te voorkomen
+            $nameLogo = $request->input('name');
+            $nameLogo = str_replace(' ', '_', $nameLogo);
+            date_default_timezone_set("Europe/Berlin");
+            $filename = $nameLogo . date("Y-m-d") . "_" . time() . '.jpg';
+            $path = $request->file('logo')->storeAs(
+                'public/logo',
+                $filename
+            );
+            $pathsave = str_replace("public", "storage", $path);
+            // $band->imgid = $pathsave;
+        } else {
+            $pathsave = $request->input('pathsave');
         }
 
         $ytlinks = new stdClass();
@@ -177,19 +178,15 @@ class BandController extends Controller
         }
         $ytjson = json_encode($ytlinks);
 
-        // $adminids = new stdClass();
-        // $adminids->id = $request->input('adminid');
-        // $adminJson = json_encode($adminids);
-
-        $band->name = $request->name;
-        $band->bio = $request->bio;
-        $band->desc = $request->desc;
-        $band->ytlinks = $ytjson;
-        $band->bgcolour = $request->bgColour;
-        $band->txtcolour = $request->txtColour;
-        // $band->adminid = $adminJson;
-
-        $band->update();
+        $band->update([
+            // 'name' => $request->name,
+            'imgid' => $pathsave,
+            'bio' => $request->bio,
+            'desc' => $request->desc,
+            'ytlinks' => $ytjson,
+            'bgcolour' => $request->bgColour,
+            'txtcolour' => $request->txtColour
+        ]);
 
         return redirect()->route('home')
 
