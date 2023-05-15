@@ -9,6 +9,12 @@ if (isset($obj->yt3)) {
     $newyt3 = explode('=', $obj->yt3);
 }
 
+use Illuminate\Support\Facades\Auth;
+Auth::check();
+$id = Auth::id();
+if (isset($id)) {
+    $admin = json_decode($band->adminid);
+}
 ?>
 @extends('layouts.app')
 
@@ -23,6 +29,12 @@ if (isset($obj->yt3)) {
             <div class="col-md-8">
                 <div class="epk">
                     <div class="row my-5">
+                        @if (isset($id) && in_array($id, (array) $admin))
+                            <div id="edit">
+                                <a href="{{ route('band.edit', $band->id)}}">Edit</a>
+                            </div>
+                        @endif
+
                         <div class="col-md-5">
                             <img class="object-fit border rounded bandImg" src={{ asset($band->imgid) }} alt="">
                         </div>
