@@ -23,7 +23,7 @@ return new class extends Migration
             $table->json("ytlinks");
             $table->string("bgcolour");
             $table->string("txtcolour");
-            $table->json("adminid");
+            $table->foreignId('adminid')->constrained('users');
         });
     }
 
