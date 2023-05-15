@@ -17,8 +17,8 @@ class AccountController extends Controller
      */
     public function index()
     {
-
-        $user = User::find(1);
+        $user_id = Auth::user()->id;
+        $user = User::find($user_id);
         $bands = $user->bands; 
         // $user = auth()->user();
         // $bands = $user->bands;
