@@ -42,8 +42,11 @@ if(isset($decode->yt3)){
 
                             <div class="form-group position-relative mt-4 start-50 translate-middle text-center">
                                 <label for="name" class="">Band Naam:</label><br>
+                                {{-- de disabled input is alleen voor display, 
+                                de hidden input wordt gebruikt om value door te geven omdat disabled fields dat niet kunnen --}}
                                 <input disabled class="form-control w-50 mx-auto" id="name" type="text" name="name"
                                     class="form-control" placeholder="Name" value="{{$band->name}}">
+                                <input type="hidden" name="name" value="{{$band->name}}">
                             </div>
 
                             <div class="form-group position-relative mt-2 start-50 translate-middle text-center">
