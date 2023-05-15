@@ -153,7 +153,7 @@ class BandController extends Controller
             'txtColour' => 'required',
         ]);
 
-        if (isset($request->file)) {
+        if (isset($request->logo)) {
             // logo naam veranderen om file conflicts te voorkomen
             $nameLogo = $request->input('name');
             $nameLogo = str_replace(' ', '_', $nameLogo);
