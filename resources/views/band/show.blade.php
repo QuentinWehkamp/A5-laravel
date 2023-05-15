@@ -1,8 +1,10 @@
 <?php
 $obj = json_decode($band->ytlinks);
+
 $newyt0 = explode('=', $obj->yt0);
 $newyt1 = explode('=', $obj->yt1);
 $newyt2 = explode('=', $obj->yt2);
+
 if (isset($obj->yt3)) {
     $newyt3 = explode('=', $obj->yt3);
 }

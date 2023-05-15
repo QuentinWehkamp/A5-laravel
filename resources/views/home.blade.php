@@ -35,7 +35,7 @@
                                         <h3 class="ps-3">{{ $band->name }}</h3>
                                         <h3 class="p-3">|</h3>
                                         <p class="mb-2">{{ $band->desc }}</p>
-                                        <a class="btn btn-primary ms-auto" href="{{ route('band.show', $band->id)}}">Bezoek</a>
+                                        <a class="btn btn-primary ms-auto" href="{{ route('band.show', $band->id) }}">Bezoek</a>
                                     </div>
                                 </div>
                             @endforeach

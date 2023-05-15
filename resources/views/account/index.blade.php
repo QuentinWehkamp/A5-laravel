@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 @extends('layouts.app')
 
 @section('content')
@@ -43,11 +47,15 @@
                     <div class="card-header">{{ __('Mijn EPK\'s') }}</div>
 
                     <div class="card-body">
-                        <div>naam + link 1</div>
-                        <div>naam + link 2</div>
-                        <div>naam + link 3</div>
-                        <div>naam + link 4</div>
-                        <div>naam + link 5</div>
+                        @if (Auth::user()->bands)
+                            <ul>
+                                @foreach (Auth::user()->bands as $band)
+                                    <a href="{{ route('band.show', $band->id) }}">{{ $band->name }}</a><br>
+                                @endforeach
+                            </ul>
+                        @else
+                            <p>No bands found for this user.</p>
+                        @endif
                     </div>
                 </div>
             </div>
