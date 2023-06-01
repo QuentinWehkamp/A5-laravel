@@ -94,13 +94,13 @@ use App\Models\User;
                                     <input class="form-control form-control-color mx-auto" type="color" value="{{$band->bgcolour}}" name="bgColour" id="bgColour">
                                 </div>
                                 <div class="col">
-                                    <label for="txtColour">Tekstkleur</label><br>
+                                    <label for="txtColour">Tekstkleur:</label><br>
                                     <input class="form-control form-control-color mx-auto" type="color" value="{{$band->txtcolour}}" name="txtColour" id="txtColour">
                                 </div>
                             </div>
                             <div class="position-relative form-group row text-center mt-3 pb-3">
                                 <div class="col">
-                                    <label for="addadmin">Admin Toevoegen</label>
+                                    <label for="addadmin">Admin Toevoegen</label><br>
                                     <select name="addadmin" id="addadmin">
                                         @foreach (User::all() as $user)
                                             @if ($user->id != $band->adminid)
@@ -110,6 +110,14 @@ use App\Models\User;
                                     </select>
                                 </div>
                                 <div class="col">
+                                    <label for="remadmin">Admin Verwijderen:</label><br>
+                                    <select name="remadmin" id="remadmin">
+                                        @foreach (User::all() as $user)
+                                            @if ($user->id == $band->adminid)
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                     </div>
