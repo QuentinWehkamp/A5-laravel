@@ -100,8 +100,9 @@ use App\Models\User;
                             </div>
                             <div class="position-relative form-group row text-center mt-3 pb-3">
                                 <div class="col">
-                                    <label for="addadmin">Admin Toevoegen</label><br>
+                                    <label for="addadmin">Admin Toevoegen:</label><br>
                                     <select name="addadmin" id="addadmin">
+                                        <option value="">opties...</option>
                                         @foreach (User::all() as $user)
                                             @if ($user->id != $band->adminid)
                                                 <option value="{{$user->id}}">{{$user->name}}</option>
@@ -112,8 +113,9 @@ use App\Models\User;
                                 <div class="col">
                                     <label for="remadmin">Admin Verwijderen:</label><br>
                                     <select name="remadmin" id="remadmin">
+                                        <option value="">opties...</option>
                                         @foreach (User::all() as $user)
-                                            @if ($user->id == $band->adminid)
+                                            @if ($user->id == $band->adminid && $user->id != auth()->user()->id)
                                                 <option value="{{$user->id}}">{{$user->name}}</option>
                                             @endif
                                         @endforeach

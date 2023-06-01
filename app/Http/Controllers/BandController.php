@@ -180,6 +180,8 @@ class BandController extends Controller
         }
         $ytjson = json_encode($ytlinks);
 
+        $band->admins()->attach($request->input('addadmin'));
+
         $band->update([
             // 'name' => $request->name,
             'imgid' => $pathsave,
@@ -187,7 +189,7 @@ class BandController extends Controller
             'desc' => $request->desc,
             'ytlinks' => $ytjson,
             'bgcolour' => $request->bgColour,
-            'txtcolour' => $request->txtColour
+            'txtcolour' => $request->txtColour,
         ]);
 
         return redirect()->route('home')
