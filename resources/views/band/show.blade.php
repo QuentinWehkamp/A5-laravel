@@ -19,19 +19,24 @@ if (isset($id)) {
 @extends('layouts.app')
 
 @section('content')
-    <div class="container" style="background-color: {{ $band->bgcolour }}; color: {{ $band->txtcolour }}">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
                     @if (isset($id) && in_array($id, (array) $admin))
-                        <div class="card-header">
+                        <div class="card-header rounded-top">
                             <div class="text-end">
-                                <a class="btn btn-outline-dark me-1" href="{{ route('band.edit', $band->id) }}">Edit</a>
-                                <a class="btn btn-danger btn-outline-dark" href="{{ route('band.destroy', $band->id) }}">Delete</a>
+                                <form action="{{ route('band.destroy', $band->id) }}" method="post">
+                                    <a class="btn btn-outline-dark me-1" href="{{ route('band.edit', $band->id) }}">Edit</a>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-outline-dark" type="submit">Delete</button>
+                                </form>
                             </div>
                         </div>
                     @endif
-                    <div class="epk d-flex flex-row flex-wrap overflow-auto position-relative py-3 px-3">
+                    <div class="epk d-flex flex-row flex-wrap overflow-auto position-relative py-3 px-3 rounded-bottom"
+                        style="background-color: {{ $band->bgcolour }}; color: {{ $band->txtcolour }}">
 
                         <div class="col-1 pt-1 me-5">
                             <img class="rounded bandImg" src={{ asset($band->imgid) }} alt="">
@@ -51,34 +56,26 @@ if (isset($id)) {
                             <div class="">
                                 <iframe class="rounded" width="280" height="157"
                                     src="https://www.youtube.com/embed/{{ $newyt0[1] }}" title="YouTube video player"
-                                    frameborder="0"
-                                    allow=""
-                                    allowfullscreen>
+                                    frameborder="0" allow="" allowfullscreen>
                                 </iframe>
                             </div>
                             <div class="">
                                 <iframe class="rounded" width="280" height="157"
                                     src="https://www.youtube.com/embed/{{ $newyt1[1] }}" title="YouTube video player"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowfullscreen>
+                                    frameborder="0" allow="" allowfullscreen>
                                 </iframe>
                             </div>
                             <div class="">
                                 <iframe class="rounded" width="280" height="157"
                                     src="https://www.youtube.com/embed/{{ $newyt2[1] }}" title="YouTube video player"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowfullscreen>
+                                    frameborder="0" allow="" allowfullscreen>
                                 </iframe>
                             </div>
                             <div class="">
                                 @if (isset($newyt3))
                                     <iframe class="rounded" width="280" height="157"
                                         src="https://www.youtube.com/embed/{{ $newyt3[1] }}"
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        allowfullscreen>
+                                        title="YouTube video player" frameborder="0" allow="" allowfullscreen>
                                     </iframe>
                                 @endif
                             </div>
