@@ -6,6 +6,7 @@ $yt2 = $decode->yt2;
 if(isset($decode->yt3)){
     $yt3 = $decode->yt3;
 }
+use App\Models\User;
 ?>
 @extends('layouts.app')
 
@@ -95,6 +96,20 @@ if(isset($decode->yt3)){
                                 <div class="col">
                                     <label for="txtColour">Tekstkleur</label><br>
                                     <input class="form-control form-control-color mx-auto" type="color" value="{{$band->txtcolour}}" name="txtColour" id="txtColour">
+                                </div>
+                            </div>
+                            <div class="position-relative form-group row text-center mt-3 pb-3">
+                                <div class="col">
+                                    <label for="addadmin">Admin Toevoegen</label>
+                                    <select name="addadmin" id="addadmin">
+                                        @foreach (User::all() as $user)
+                                            @if ($user->id != $band->adminid)
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col">
                                 </div>
                             </div>
                     </div>
