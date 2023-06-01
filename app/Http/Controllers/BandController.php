@@ -201,7 +201,7 @@ class BandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Band $band, $id)
+    public function destroy(Band $band)
     {
         $band->delete();
 
