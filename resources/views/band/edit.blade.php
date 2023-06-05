@@ -7,6 +7,10 @@ if(isset($decode->yt3)){
     $yt3 = $decode->yt3;
 }
 use App\Models\User;
+ 
+// $user = User::find(3);
+// dd($user->bands);
+// exit();
 ?>
 @extends('layouts.app')
 
@@ -45,6 +49,7 @@ use App\Models\User;
                                 <label for="name" class="">Band Naam:</label><br>
                                 {{-- de disabled input is alleen voor display, 
                                 de hidden input wordt gebruikt om value door te geven omdat disabled fields dat niet kunnen --}}
+                                <input type="hidden" name="id" value="">
                                 <input disabled class="form-control w-50 mx-auto" id="name" type="text" name="name"
                                     class="form-control" placeholder="Name" value="{{$band->name}}">
                                 <input type="hidden" name="name" value="{{$band->name}}">
@@ -104,7 +109,7 @@ use App\Models\User;
                                     <select name="addadmin" id="addadmin">
                                         <option value="">opties...</option>
                                         @foreach (User::all() as $user)
-                                            @if ($user->id != $band->adminid)
+                                            @if (!$user->bands->contains('id', $band->id))
                                                 <option value="{{$user->id}}">{{$user->name}}</option>
                                             @endif
                                         @endforeach
@@ -115,7 +120,7 @@ use App\Models\User;
                                     <select name="remadmin" id="remadmin">
                                         <option value="">opties...</option>
                                         @foreach (User::all() as $user)
-                                            @if ($user->id == $band->adminid && $user->id != auth()->user()->id)
+                                            @if ($user->bands->contains('id', $band->id) && $user->id != auth()->user()->id)
                                                 <option value="{{$user->id}}">{{$user->name}}</option>
                                             @endif
                                         @endforeach

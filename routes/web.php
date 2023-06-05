@@ -33,5 +33,6 @@ Route::post('change-password', [App\Http\Controllers\AccountController::class, '
 
 //band routes
 Route::resource('/band', App\Http\Controllers\BandController::class);
-Route::get('/epk/create', [App\Http\Controllers\BandController::class, 'create'])->middleware("auth");
+Route::get('/epk/create', [BandController::class, 'create'])->middleware("auth");
+
 // Route::post('/epk', [App\Http\Controllers\BandController::class, 'store'])->name("band.store");

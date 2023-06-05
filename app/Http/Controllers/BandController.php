@@ -8,10 +8,15 @@ use Symfony\Component\Console\Input\Input;
 use stdClass;
 use App\Models\Band;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class BandController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only('create', 'store', 'edit', 'update', 'destroy');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -125,7 +130,6 @@ class BandController extends Controller
     public function edit($id)
     {
         // $this->middleware('isAdmin');
-        $this->middleware('auth');
         $band = Band::find($id);
         return view('band.edit', compact('band'));
     }
@@ -180,8 +184,8 @@ class BandController extends Controller
         }
         $ytjson = json_encode($ytlinks);
 
-        $band->admins()->attach($request->input('addadmin'));
-
+        
+        
         $band->update([
             // 'name' => $request->name,
             'imgid' => $pathsave,
@@ -192,6 +196,14 @@ class BandController extends Controller
             'txtcolour' => $request->txtColour,
         ]);
 
+        if (isset($request->addadmin)) {
+            $band->admins()->attach($request->addadmin);
+        }
+        if (isset($request->remadmin)) {
+            $band->admins()->detach($request->remadmin);
+        }
+        $band->save();
+        
         return redirect()->route('home')
 
             ->with('success', 'Post updated successfully');
