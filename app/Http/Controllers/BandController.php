@@ -196,10 +196,10 @@ class BandController extends Controller
             'txtcolour' => $request->txtColour,
         ]);
 
-        if (isset($request->addadmin)) {
+        if (!empty($request->addadmin)) {
             $band->admins()->attach($request->addadmin);
         }
-        if (isset($request->remadmin)) {
+        if (!empty($request->remadmin)) {
             $band->admins()->detach($request->remadmin);
         }
         $band->save();

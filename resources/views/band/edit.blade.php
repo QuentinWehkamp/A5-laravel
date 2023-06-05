@@ -107,7 +107,7 @@ use App\Models\User;
                                 <div class="col">
                                     <label for="addadmin">Admin Toevoegen:</label><br>
                                     <select name="addadmin" id="addadmin">
-                                        <option>opties...</option>
+                                        <option value="">opties...</option>
                                         @foreach (User::all() as $user)
                                             @if (!$user->bands->contains('id', $band->id))
                                                 <option value="{{$user->id}}">{{$user->name}}</option>
@@ -118,7 +118,7 @@ use App\Models\User;
                                 <div class="col">
                                     <label for="remadmin">Admin Verwijderen:</label><br>
                                     <select name="remadmin" id="remadmin">
-                                        <option>opties...</option>
+                                        <option value="">opties...</option>
                                         @foreach (User::all() as $user)
                                             @if ($user->bands->contains('id', $band->id) && $user->id != auth()->user()->id)
                                                 <option value="{{$user->id}}">{{$user->name}}</option>
