@@ -48,11 +48,16 @@
 
                     <div class="card-body">
                         @if (Auth::user()->bands)
-                            <ul>
                                 @foreach (Auth::user()->bands as $band)
-                                    <a href="{{ route('band.show', $band->id) }}">{{ $band->name }}</a><br>
+                                    {{-- <a href="{{ route('band.show', $band->id) }}">{{ $band->name }}</a><br> --}}
+                                    <div class="col-md d-flex align-items-center">
+                                        <img class="userImg" src={{ $band->imgid }} alt="">
+                                        <h3 class="ps-3">{{ $band->name }}</h3>
+                                        {{-- <h3 class="p-3">|</h3> --}}
+                                        {{-- <p class="mb-2">{{ $band->desc }}</p> --}}
+                                        <a class="btn btn-primary ms-auto" href="{{ route('band.show', $band->id) }}">Bezoek</a>
+                                    </div>
                                 @endforeach
-                            </ul>
                         @else
                             <p>No bands found for this user.</p>
                         @endif

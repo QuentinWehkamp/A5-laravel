@@ -6,8 +6,8 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        {{ __('Dashboard') }}
-                        <a href="/epk/create">Nieuw</a>
+                            {{ __('Dashboard') }}
+                            <a href="/band/create" class=" btn btn-primary btn-sm">Nieuw</a>
                     </div>
 
                     <div class="card-body">
@@ -18,12 +18,11 @@
                         @endif
 
                         <form method="GET" action="{{ route('home') }}">
-                            <div class="form-group">
-                                <input type="text" name="search" class="form-control" placeholder="Zoek voor bands..."
+                            <div class="form-group row mx-3">
+                                <input type="text" name="search" class="form-control col" placeholder="Zoek voor bands..."
                                     autocomplete="off">
-                            </div>
-                            <br>
-                            <button type="submit" class="btn btn-primary">Zoek</button>
+                                    <button type="submit" class="col-3 btn btn-secondary ">Zoek</button>
+                                </div>
                         </form>
                         <br>
 
@@ -33,14 +32,14 @@
                                     <div class="col-md d-flex align-items-center">
                                         <img class="searchImg" src={{ $band->imgid }} alt="">
                                         <h3 class="ps-3">{{ $band->name }}</h3>
-                                        <h3 class="p-3">|</h3>
-                                        <p class="mb-2">{{ $band->desc }}</p>
+                                        {{-- <h3 class="p-3">|</h3> --}}
+                                        {{-- <p class="mb-2">{{ $band->desc }}</p> --}}
                                         <a class="btn btn-primary ms-auto" href="{{ route('band.show', $band->id) }}">Bezoek</a>
                                     </div>
                                 </div>
                             @endforeach
                         @else
-                            <p>Geen bands gevonden.</p>
+                            <p>Zoek een band.</p>
                         @endif
 
                     </div>

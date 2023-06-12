@@ -6,6 +6,11 @@ $yt2 = $decode->yt2;
 if(isset($decode->yt3)){
     $yt3 = $decode->yt3;
 }
+use App\Models\User;
+ 
+// $user = User::find(3);
+// dd($user->bands);
+// exit();
 ?>
 @extends('layouts.app')
 
@@ -44,6 +49,7 @@ if(isset($decode->yt3)){
                                 <label for="name" class="">Band Naam:</label><br>
                                 {{-- de disabled input is alleen voor display, 
                                 de hidden input wordt gebruikt om value door te geven omdat disabled fields dat niet kunnen --}}
+                                <input type="hidden" name="id" value="">
                                 <input disabled class="form-control w-50 mx-auto" id="name" type="text" name="name"
                                     class="form-control" placeholder="Name" value="{{$band->name}}">
                                 <input type="hidden" name="name" value="{{$band->name}}">
@@ -93,8 +99,32 @@ if(isset($decode->yt3)){
                                     <input class="form-control form-control-color mx-auto" type="color" value="{{$band->bgcolour}}" name="bgColour" id="bgColour">
                                 </div>
                                 <div class="col">
-                                    <label for="txtColour">Tekstkleur</label><br>
+                                    <label for="txtColour">Tekstkleur:</label><br>
                                     <input class="form-control form-control-color mx-auto" type="color" value="{{$band->txtcolour}}" name="txtColour" id="txtColour">
+                                </div>
+                            </div>
+                            <div class="position-relative form-group row text-center mt-3 pb-3">
+                                <div class="col">
+                                    <label for="addadmin">Admin Toevoegen:</label><br>
+                                    <select name="addadmin" id="addadmin">
+                                        <option value="">opties...</option>
+                                        @foreach (User::all() as $user)
+                                            @if (!$user->bands->contains('id', $band->id))
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="remadmin">Admin Verwijderen:</label><br>
+                                    <select name="remadmin" id="remadmin">
+                                        <option value="">opties...</option>
+                                        @foreach (User::all() as $user)
+                                            @if ($user->bands->contains('id', $band->id) && $user->id != auth()->user()->id)
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                     </div>

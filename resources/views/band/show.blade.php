@@ -1,20 +1,33 @@
 <?php
 $obj = json_decode($band->ytlinks);
 
-$newyt0 = explode('=', $obj->yt0);
-$newyt1 = explode('=', $obj->yt1);
-$newyt2 = explode('=', $obj->yt2);
+$ytArray = array();
+
+for ($i = 0; $i < 3; $i++) {
+    $ytProperty = 'yt' . $i;
+
+    if (str_contains($obj->$ytProperty, 'youtu.be')) {
+        $ytArray[$ytProperty] = explode('youtu.be/', $obj->$ytProperty);
+    } else {
+        $ytArray[$ytProperty] = explode('=', $obj->$ytProperty);
+    }
+}
+$newyt0 = $ytArray['yt0'];
+$newyt1 = $ytArray['yt1'];
+$newyt2 = $ytArray['yt2'];
 
 if (isset($obj->yt3)) {
-    $newyt3 = explode('=', $obj->yt3);
+    if (str_contains($obj->yt3, 'youtu.be')) {
+        $newyt3 = explode('youtu.be/', $obj->yt3);
+    } else {
+        $newyt3 = explode('=', $obj->yt3);
+    }
 }
+
 
 use Illuminate\Support\Facades\Auth;
 Auth::check();
-$id = Auth::id();
-if (isset($id)) {
-    $admin = json_decode($band->adminid);
-}
+$user = Auth::user();
 ?>
 @extends('layouts.app')
 
@@ -23,7 +36,7 @@ if (isset($id)) {
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    @if (isset($id) && in_array($id, (array) $admin))
+                    @if (isset($user) && $user->bands->contains('id', $band->id))
                         <div class="card-header rounded-top">
                             <div class="text-end">
                                 <form action="{{ route('band.destroy', $band->id) }}" method="post">

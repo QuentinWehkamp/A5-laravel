@@ -8,10 +8,15 @@ use Symfony\Component\Console\Input\Input;
 use stdClass;
 use App\Models\Band;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class BandController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only('create', 'store', 'edit', 'update', 'destroy');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -124,8 +129,6 @@ class BandController extends Controller
      */
     public function edit($id)
     {
-        // $this->middleware('isAdmin');
-        $this->middleware('auth');
         $band = Band::find($id);
         return view('band.edit', compact('band'));
     }
@@ -140,7 +143,6 @@ class BandController extends Controller
      */
     public function update(Request $request, Band $band)
     {
-
         $request->validate([
             // unique in de naam zorgt voor een conflict dus ik heb het gemaakt dat je de naam niet kan veranderen 
             // 'name' => 'required|unique:bands|max:255',
@@ -180,6 +182,8 @@ class BandController extends Controller
         }
         $ytjson = json_encode($ytlinks);
 
+        
+        
         $band->update([
             // 'name' => $request->name,
             'imgid' => $pathsave,
@@ -187,9 +191,17 @@ class BandController extends Controller
             'desc' => $request->desc,
             'ytlinks' => $ytjson,
             'bgcolour' => $request->bgColour,
-            'txtcolour' => $request->txtColour
+            'txtcolour' => $request->txtColour,
         ]);
 
+        if (!empty($request->addadmin)) {
+            $band->admins()->attach($request->addadmin);
+        }
+        if (!empty($request->remadmin)) {
+            $band->admins()->detach($request->remadmin);
+        }
+        $band->save();
+        
         return redirect()->route('home')
 
             ->with('success', 'Post updated successfully');

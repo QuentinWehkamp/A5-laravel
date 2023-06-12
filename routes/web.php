@@ -21,9 +21,9 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/home', function () {
-    return redirect('/');
-});
+// Route::get('/home', function () {
+//     return redirect('/?search=');
+// });
 
 // account routes
 Route::resource('/account', App\Http\Controllers\AccountController::class);
@@ -32,6 +32,7 @@ Route::post('change-password', [App\Http\Controllers\AccountController::class, '
 
 
 //band routes
-Route::resource('/band', App\Http\Controllers\BandController::class);
-Route::get('/epk/create', [App\Http\Controllers\BandController::class, 'create'])->middleware("auth");
+Route::resource('/band', App\Http\Controllers\BandController::class, ['except' => ['edit']]);
+Route::resource('/band', App\Http\Controllers\BandController::class, ['only' => ['edit']])->middleware('isAdmin');
+
 // Route::post('/epk', [App\Http\Controllers\BandController::class, 'store'])->name("band.store");

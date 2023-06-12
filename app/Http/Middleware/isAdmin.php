@@ -6,7 +6,6 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
 class isAdmin
 {
     /**
@@ -18,8 +17,19 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next)
     {
+        $pageId = $request->route('band');
         Auth::check();
-        $id = Auth::id();
-        return $next($request);
+
+        if (!empty(Auth::id())) {
+            $user = Auth::user();
+            if ($user->bands->contains('id', $pageId)){
+                return $next($request);
+            } else {
+                return redirect()->route('home');
+            }
+            
+        } else {
+            return redirect()->route('home');
+        }
     }
 }
