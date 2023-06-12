@@ -129,7 +129,6 @@ class BandController extends Controller
      */
     public function edit($id)
     {
-        // $this->middleware('isAdmin');
         $band = Band::find($id);
         return view('band.edit', compact('band'));
     }
@@ -144,7 +143,6 @@ class BandController extends Controller
      */
     public function update(Request $request, Band $band)
     {
-
         $request->validate([
             // unique in de naam zorgt voor een conflict dus ik heb het gemaakt dat je de naam niet kan veranderen 
             // 'name' => 'required|unique:bands|max:255',
