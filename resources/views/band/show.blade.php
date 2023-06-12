@@ -1,35 +1,29 @@
 <?php
 $obj = json_decode($band->ytlinks);
 
-if (str_contains('youtu.be', $obj->yt0)) {
-    $newyt0 = explode('/', $obj->yt0);
-} else {
-    $newyt0 = explode('=', $obj->yt0);
-}
+$ytArray = array();
 
-if (str_contains('youtu.be', $obj->yt1)) {
-    $newyt1 = explode('/', $obj->yt1);
-} else {
-    $newyt1 = explode('=', $obj->yt1);
-}
+for ($i = 0; $i < 3; $i++) {
+    $ytProperty = 'yt' . $i;
 
-if (str_contains('youtu.be', $obj->yt2)) {
-    $newyt2 = explode('/', $obj->yt2);
-} else {
-    $newyt2 = explode('=', $obj->yt2);
+    if (str_contains($obj->$ytProperty, 'youtu.be')) {
+        $ytArray[$ytProperty] = explode('youtu.be/', $obj->$ytProperty);
+    } else {
+        $ytArray[$ytProperty] = explode('=', $obj->$ytProperty);
+    }
 }
+$newyt0 = $ytArray['yt0'];
+$newyt1 = $ytArray['yt1'];
+$newyt2 = $ytArray['yt2'];
 
 if (isset($obj->yt3)) {
-    if (str_contains('youtu.be', $obj->yt3)) {
-        $newyt + ($i = explode('/', $obj->yt3));
+    if (str_contains($obj->yt3, 'youtu.be')) {
+        $newyt3 = explode('youtu.be/', $obj->yt3);
     } else {
-        $newyt[$i] = explode('=', $obj->yt3);
+        $newyt3 = explode('=', $obj->yt3);
     }
-    $newyt3 = explode('=', $obj->yt3);
 }
 
-var_dump($newyt0);
-exit();
 
 use Illuminate\Support\Facades\Auth;
 Auth::check();

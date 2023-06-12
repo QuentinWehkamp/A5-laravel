@@ -39,7 +39,7 @@
                                 </div>
                             @endforeach
                         @else
-                            <p>Geen bands gevonden.</p>
+                            <p>Zoek een band.</p>
                         @endif
 
                     </div>
